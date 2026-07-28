@@ -1,0 +1,23 @@
+# Dependency directories
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Production build outputs
+frontend/dist/
+frontend/build/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Editor and System caches
+.idea/
+.vscode/
+*.suo
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
