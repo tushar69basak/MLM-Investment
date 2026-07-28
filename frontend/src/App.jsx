@@ -392,11 +392,50 @@ export default function App() {
 
   // Action: Logout
   const handleLogout = () => {
+    // Reset auth token and user profile
     setToken('');
     setUser(null);
+    
+    // Reset main statistics and logs
     setStats(null);
     setLogs(null);
+    setDirectReferrals([]);
+    setReferralTree([]);
     setPage('dashboard');
+    
+    // Reset UI notifications
+    setError('');
+    setSuccess('');
+    
+    // Reset login/register forms
+    setAuthForm({
+      email: '',
+      password: '',
+      fullName: '',
+      mobileNumber: '',
+      referralCode: ''
+    });
+    
+    // Reset Sandbox simulation states
+    setDepositAmount('500');
+    setSimDate(new Date().toISOString().split('T')[0]);
+    
+    // Reset Razorpay gateway states
+    setIsRazorpayModalOpen(false);
+    setRazorpayMethod('qr');
+    setCardNumber('4111 1111 1111 1111');
+    setCardExpiry('12/28');
+    setCardCvv('123');
+    
+    // Reset Admin states
+    setAdminData(null);
+    setAdminTab('users');
+    setAdminLoading(false);
+    
+    // Reset Investment modal states
+    setIsInvestModalOpen(false);
+    setInvestPlan('Basic');
+    setInvestAmount('100');
   };
 
   // Recursive Tree Node Renderer for Referral tree
