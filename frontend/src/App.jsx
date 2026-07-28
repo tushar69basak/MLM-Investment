@@ -306,6 +306,7 @@ export default function App() {
       const data = await res.json();
       if (data.success) {
         setSuccess(data.message);
+        setDepositAmount('500');
         loadDashboardData();
         fetchProfile();
       } else {
@@ -856,7 +857,7 @@ export default function App() {
                   <h3 className="panel-title">Developer Sandbox Tools</h3>
                 </div>
                 
-                {/* Simulator 1: Deposit funds */}
+                {/* Simulator: Deposit funds */}
                 <div className="simulator-group">
                   <div className="simulator-title">
                     <DollarSign size={16} style={{ color: 'var(--accent-yellow)' }} />
@@ -871,26 +872,6 @@ export default function App() {
                     />
                     <button className="btn-action yellow" onClick={() => setIsRazorpayModalOpen(true)}>
                       Pay with Razorpay
-                    </button>
-                  </div>
-                </div>
-
-                {/* Simulator 2: Custom Cron Trigger */}
-                <div className="simulator-group">
-                  <div className="simulator-title">
-                    <Calendar size={16} style={{ color: 'var(--accent-green)' }} />
-                    Simulate Day & Cron Trigger
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    <input 
-                      type="date" 
-                      className="sim-input" 
-                      value={simDate} 
-                      onChange={e => setSimDate(e.target.value)}
-                    />
-                    <button className="btn-action green" onClick={handleTriggerCron}>
-                      <Play size={14} style={{ display: 'inline', marginRight: 6 }} />
-                      Trigger Daily Yields
                     </button>
                   </div>
                 </div>
@@ -1554,7 +1535,7 @@ export default function App() {
                   await handleDeposit();
                 }}
               >
-                Simulate Successful Payment
+                Pay {depositAmount ? `$${parseFloat(depositAmount).toFixed(2)}` : 'with Razorpay'}
               </button>
               <button 
                 className="btn-razor-cancel" 
