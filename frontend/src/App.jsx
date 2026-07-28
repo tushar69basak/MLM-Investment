@@ -850,72 +850,76 @@ export default function App() {
                   )}
                 </div>
               </div>
+            </div>
 
-              {/* Developer testing tool panel */}
-              <div className="simulator-panel glass-card">
+            {/* Bottom Section: Active Packages and Quick Deposit */}
+            <div className="dashboard-bottom-grid">
+              {/* List active investments summary */}
+              <div className="glass-card" style={{ padding: 24 }}>
                 <div className="panel-header">
-                  <h3 className="panel-title">Developer Sandbox Tools</h3>
+                  <h3 className="panel-title">Active Packages Summary</h3>
                 </div>
-                
-                {/* Simulator: Deposit funds */}
-                <div className="simulator-group">
-                  <div className="simulator-title">
-                    <DollarSign size={16} style={{ color: 'var(--accent-yellow)' }} />
-                    Simulate Wallet Deposit
-                  </div>
-                  <div className="simulator-actions">
-                    <input 
-                      type="number" 
-                      className="sim-input" 
-                      value={depositAmount} 
-                      onChange={e => setDepositAmount(e.target.value)}
-                    />
-                    <button className="btn-action yellow" onClick={() => setIsRazorpayModalOpen(true)}>
+                <div className="table-wrapper">
+                  {logs && logs.investments.length > 0 ? (
+                    <table className="custom-table">
+                      <thead>
+                        <tr>
+                          <th>Plan Name</th>
+                          <th>Amount</th>
+                          <th>Daily Rate</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {logs.investments.slice(0, 5).map(inv => (
+                          <tr key={inv._id}>
+                            <td style={{ fontWeight: 'bold' }}>{inv.planName}</td>
+                            <td>${inv.amount.toFixed(2)}</td>
+                            <td style={{ color: 'var(--accent-green)' }}>{inv.dailyRoiPercentage}%</td>
+                            <td>{formatDate(inv.startDate)}</td>
+                            <td>{formatDate(inv.endDate)}</td>
+                            <td>
+                              <span className={`badge badge-${inv.status.toLowerCase()}`}>
+                                {inv.status}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <div className="empty-state">No investments created yet. Click "New Investment" to purchase a plan!</div>
+                  )}
+                </div>
+              </div>
+
+              {/* Deposit Card */}
+              <div className="simulator-panel glass-card" style={{ height: '100%' }}>
+                <div className="panel-header">
+                  <h3 className="panel-title">Quick Wallet Deposit</h3>
+                </div>
+                <div className="simulator-group" style={{ border: 'none', padding: 0 }}>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: 15 }}>
+                    Enter an amount and deposit funds immediately to your wallet using the Razorpay payment gateway simulation.
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label" style={{ fontSize: '0.75rem' }}>Deposit Amount ($)</label>
+                      <input 
+                        type="number" 
+                        className="sim-input" 
+                        style={{ width: '100%', padding: '10px 12px' }}
+                        value={depositAmount} 
+                        onChange={e => setDepositAmount(e.target.value)}
+                      />
+                    </div>
+                    <button className="btn-action yellow" style={{ width: '100%', padding: '10px 12px', justifyContent: 'center' }} onClick={() => setIsRazorpayModalOpen(true)}>
                       Pay with Razorpay
                     </button>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* List active investments summary */}
-            <div className="glass-card" style={{ padding: 24 }}>
-              <div className="panel-header">
-                <h3 className="panel-title">Active Packages Summary</h3>
-              </div>
-              <div className="table-wrapper">
-                {logs && logs.investments.length > 0 ? (
-                  <table className="custom-table">
-                    <thead>
-                      <tr>
-                        <th>Plan Name</th>
-                        <th>Amount</th>
-                        <th>Daily Rate</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {logs.investments.slice(0, 5).map(inv => (
-                        <tr key={inv._id}>
-                          <td style={{ fontWeight: 'bold' }}>{inv.planName}</td>
-                          <td>${inv.amount.toFixed(2)}</td>
-                          <td style={{ color: 'var(--accent-green)' }}>{inv.dailyRoiPercentage}%</td>
-                          <td>{formatDate(inv.startDate)}</td>
-                          <td>{formatDate(inv.endDate)}</td>
-                          <td>
-                            <span className={`badge badge-${inv.status.toLowerCase()}`}>
-                              {inv.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ) : (
-                  <div className="empty-state">No investments created yet. Click "New Investment" to purchase a plan!</div>
-                )}
               </div>
             </div>
           </>

@@ -467,13 +467,22 @@ button, input, select, textarea {
 /* Charts and Panels Section */
 .charts-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
   margin-bottom: 30px;
 }
 
+.dashboard-bottom-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 24px;
+  margin-bottom: 30px;
+  align-items: start;
+}
+
 @media (max-width: 1024px) {
-  .charts-grid {
+  .charts-grid,
+  .dashboard-bottom-grid {
     grid-template-columns: 1fr;
   }
 }
