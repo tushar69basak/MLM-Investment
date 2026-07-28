@@ -91,6 +91,8 @@ export default function App() {
 
   // Load user profile on token change
   useEffect(() => {
+    setError('');
+    setSuccess('');
     if (token) {
       localStorage.setItem('token', token);
       fetchProfile();
@@ -332,6 +334,8 @@ export default function App() {
       if (data.success) {
         setSuccess(data.message);
         setIsInvestModalOpen(false);
+        setInvestAmount('100');
+        setInvestPlan('Basic');
         loadDashboardData();
         fetchProfile();
       } else {
